@@ -1,0 +1,27 @@
+// -----------------------------------------------
+// ACCOUNT : Query to get the Name passing the ID
+// -----------------------------------------------
+// Case 1 : ID filled and Name empty
+if((!this.Customer_code.IsInitial()) && (this.Customer_name.IsInitial()))
+	refresh = 1;
+// Case 2 : ID cleared and Name already filled
+else if((this.Customer_code.IsInitial()) && (!this.Customer_name.IsInitial()))
+	this.Customer_name.Clear();
+// Case 3 : ID changed and Name already filled
+else if((!this.Customer_code.IsInitial()) && (!this.Customer_name.IsInitial()) && (this.Customer_code != this.Int_Customer_code))
+	refresh = 1;
+
+if(refresh==1)
+{
+	var query = Customer.QueryByIdentification;
+	var selectionParams = query.CreateSelectionParams();
+	var resultData;
+	selectionParams.Add(query.InternalID, "I", "EQ", this.Customer_code);
+	// Result
+	resultData = query.Execute(selectionParams);
+	this.Customer_name.Clear();
+	foreach(var account in resultData)
+		this.Customer_name = account.CurrentCommon.BusinessPartnerFormattedName;
+
+	this.Int_Customer_code = this.Customer_code;
+}
