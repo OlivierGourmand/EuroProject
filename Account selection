@@ -7,9 +7,6 @@ if((!this.Customer_code.IsInitial()) && (this.Customer_name.IsInitial()))
 // Case 2 : ID cleared and Name already filled
 else if((this.Customer_code.IsInitial()) && (!this.Customer_name.IsInitial()))
 	this.Customer_name.Clear();
-// Case 3 : ID changed and Name already filled
-else if((!this.Customer_code.IsInitial()) && (!this.Customer_name.IsInitial()) && (this.Customer_code != this.Int_Customer_code))
-	refresh = 1;
 
 if(refresh==1)
 {
